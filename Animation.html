@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: black;
+        }
+
+        .box {
+            height: 250px;
+            width: 400px;
+            background-color: darkgrey;
+            position: relative;
+            border-radius: 3px;
+            /* background-image: linear-gradient(45deg ,5%red,blue); */
+        }
+
+        @property --angle {
+            syntax: '<angle>';
+            initial-value: 0deg;
+            inherits: false;
+        }
+
+        .box::before,
+        .box::after {
+            content: '';
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            z-index: -1;
+            /* background-color: blueviolet; */
+            background-image: conic-gradient(from var(--angle), yellow, rgb(255, 0, 0), rgb(0, 255, 0), blueviolet);
+            padding: 4px;
+            top: 50%;
+            border-radius: 3px;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            transition: .3s linear;
+            opacity: 0;
+
+        }
+
+        .box::after {
+            filter: blur(25px);
+            opacity: .8;
+        }
+
+        .box:hover::before,
+        .box:hover::after {
+            animation: spin 3s linear infinite;
+            padding: 9px;
+            
+        }
+
+        @keyframes spin {
+            from {
+                /* transform: rotate(0deg); */
+                --angle: 0deg
+            }
+
+            to {
+                /* transform: rotate(360deg); */
+                --angle: 360deg
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="box">
+    </div>
+</body>
+
+</html>
